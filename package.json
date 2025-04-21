@@ -1,0 +1,17 @@
+{
+  "name": "react_mvc_test_suite",
+  "version": "1.0.0",
+  "description": "This is a test suite for the TODOMVC suite. Site: https://todomvc.com/examples/react/dist/",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.14.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0"
+  }
+}
