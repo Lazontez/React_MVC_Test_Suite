@@ -22,14 +22,16 @@ test('TC001: Validate user can successfully add multiple to do items', async ({ 
 test('TC002: Validate a user can remove an item', async ({ page }) => {
   let toDo = new ToDoPage(page);
   let s = 0
+  let itemCountText;
   while (s < testData.length) {
     await toDo.addItem(`${s + 1}: ${testData[s].task}`)
-    let itemCountText = await toDo.getItemCountText()
-    expect(itemCountText).toBe(`${s + 1} ${(s+1 === 1?'item':'items')} left!`)
+    itemCountText = await toDo.getItemCountText()
+    expect(itemCountText).toBe(`${s + 1} ${(s + 1 === 1 ? 'item' : 'items')} left!`)
     s++
   }
   await toDo.removeFirstItem()
-  
+  await expect(itemCountText).toBe(`${s} ${(s + 1 === 1 ? 'item' : 'items')} left!`)
+
 
 })
 
