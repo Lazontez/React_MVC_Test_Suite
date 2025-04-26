@@ -1,25 +1,17 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { ToDoPage} from '../pages/toDoPage';
+import { test, expect } from '../fixtures/toDoPage.js';
+import { ToDoPage } from '../pages/toDoPage';
+import testData from '../utils/toDoitems.json'
 
 test.beforeEach(async ({ page }) => {
   // Go to the To Do MVC site
   await page.goto('https://todomvc.com/examples/react/dist/');
 });
 
-test('TC001 Validate user can successfully add a to do item', async ({ page }) => {
+test('TC001: Validate user can successfully add multiple to do items', async ({ page }) => {
   let toDo = new ToDoPage(page);
-  const title = 'Get Milk'
-  await toDo.addItem(title);
-  const items = await toDo.list.allTextContents()
-  await expect(items).toHaveLength(1)
-  await expect(items[0]).toContain(title)
-  
-});
-test('TC002 Validate user can successfully add multiple to do items', async ({ page }) => {
-  let toDo = new ToDoPage(page);
-  const title1 = 'Get Milk'
-  const title2 = 'Get Eggs'
+  const title1 = testData[0].task
+  const title2 = testData[1].task
   await toDo.addItem(title1);
   await toDo.addItem(title2);
   const items = await toDo.list.allTextContents()
@@ -27,3 +19,20 @@ test('TC002 Validate user can successfully add multiple to do items', async ({ p
   await expect(items[0]).toContain(title1)
   await expect(items[1]).toContain(title2)
 });
+test.only('TC002: Validate user can remove an item', async ({ page }) => {
+  let toDo = new ToDoPage(page);
+  // Add multiple todoitems
+  let s = 0
+  while (s < testData.length) {
+    await toDo.addItem(`${s + 1}: ${testData[s].task}`)
+    let itemCountText = await toDo.getItemCountText()
+    // Confirm the items were added and the number of items 
+    expect(itemCountText).toBe(`${s + 1} ${(s+1 === 1?'item':'items')} left!`)
+    s++
+  }
+  // Locate the 'X' mark
+  
+  // Click 'X' to remove the todo item
+
+})
+
