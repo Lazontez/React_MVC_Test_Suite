@@ -19,7 +19,7 @@ test('TC001: Validate user can successfully add multiple to do items', async ({ 
   await expect(items[0]).toContain(title1)
   await expect(items[1]).toContain(title2)
 });
-test.only('TC002: Validate a user can remove an item', async ({ page }) => {
+test('TC002: Validate a user can remove an item', async ({ page }) => {
   let toDo = new ToDoPage(page);
   let s = 0
   while (s < testData.length) {
