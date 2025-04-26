@@ -19,20 +19,17 @@ test('TC001: Validate user can successfully add multiple to do items', async ({ 
   await expect(items[0]).toContain(title1)
   await expect(items[1]).toContain(title2)
 });
-test.only('TC002: Validate user can remove an item', async ({ page }) => {
+test.only('TC002: Validate a user can remove an item', async ({ page }) => {
   let toDo = new ToDoPage(page);
-  // Add multiple todoitems
   let s = 0
   while (s < testData.length) {
     await toDo.addItem(`${s + 1}: ${testData[s].task}`)
     let itemCountText = await toDo.getItemCountText()
-    // Confirm the items were added and the number of items 
     expect(itemCountText).toBe(`${s + 1} ${(s+1 === 1?'item':'items')} left!`)
     s++
   }
-  // Locate the 'X' mark
+  await toDo.removeFirstItem()
   
-  // Click 'X' to remove the todo item
 
 })
 
